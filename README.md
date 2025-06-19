@@ -2,84 +2,120 @@
    <img alt="Awesome Flutter" src="https://img.shields.io/badge/Awesome-Flutter-blue.svg?longCache=true&style=flat-square" />
 </a>
 
-
 # Titled Bottom Navigation Bar
 
-A beautiful, clean and simple bottom navigation bar with smooth animation on click. This package is high customizable, read more bellow for more details.
+Une barre de navigation inférieure élégante, simple et personnalisable avec une animation fluide lors de la sélection. Ce package est hautement personnalisable et flexible, notamment pour l'affichage d'icônes ou d'images SVG.
 
+Vous pouvez consulter le code source de cette bibliothèque dans le dossier [/lib](https://github.com/pedromassango/titled_navigation_bar/tree/master/lib).
 
-You can see the source code of this lib inside the [/lib](https://github.com/pedromassango/titled_navigation_bar/tree/master/lib) folder.
+### Montrez votre soutien :heart: en mettant une étoile au repo !
 
-### Show some :heart: and star the repo to support this project
-
-## Preview (default mode)
+## Aperçu (mode par défaut)
 
 ![Default Mode Gif](screenshots/preview.gif "TitledNavigationBar")
 
-
-## Preview (with reverse mode)
+## Aperçu (mode inversé)
 
 ![Reversed Mode Gif](screenshots/reverse.gif "TitledNavigationBar")
 
+## Fonctionnalités principales
 
-## Package overview
+- [x] Couleur personnalisée pour l'icône
+- [x] Couleur personnalisée pour l'indicateur
+- [x] Support de deux à cinq items
+- [x] Mode inversé (affiche l'élément sélectionné en icône ou en titre)
+- [x] Couleur de fond personnalisable pour chaque item
+- [x] Mise à jour via la propriété `currentIndex` (stateless)
+- [x] Pas besoin de setState(...) pour changer l'index courant
+- [x] Support du TextDirection RTL
+- [x] Support de tout widget en tant qu'icône (Icon, SvgPicture, Image, ...)
 
-- [x] Custom icon color
-- [x] Custom indicator color
-- [x] Support from two to five items
-- [x] Reverse mode (show selected item as icon or title)
-- [x] Option to define custom item background color
-- [x] Use currentIndex property to update the Bar giving a tab position
-- [x] No need setState(...) to update the current index
-- [x] Support RTL TextDirection (thanks to [Victor Uvarov](https://github.com/VictorUvarov))
+## Installation
 
-## Getting Started
-Follow these steps to use this library
-
-### Add the plugin:
+Ajoutez le plugin à votre fichier `pubspec.yaml` :
 
 ```yaml
 dependencies:
-  ...
+  flutter:
+    sdk: flutter
   titled_navigation_bar: ^5.0.0-nullsafety.0
+  flutter_svg: ^2.0.0 # (optionnel, pour les SVG)
 ```
 
-### Import the package
-```Dart
+## Importation
+
+```dart
 import 'package:titled_navigation_bar/titled_navigation_bar.dart';
+// Pour les SVG :
+import 'package:flutter_svg/flutter_svg.dart';
 ```
 
-### Adding the widget
+## Utilisation de base
 
-```Dart
+```dart
 bottomNavigationBar: TitledBottomNavigationBar(
-  currentIndex: 2, // Use this to update the Bar giving a position
-  onTap: (index){
+  currentIndex: 2, // Position sélectionnée
+  onTap: (index) {
     print("Selected Index: $index");
   },
   items: [
-      TitledNavigationBarItem(title: Text('Home'), icon: Icons.home),
-      TitledNavigationBarItem(title: Text('Search'), icon: Icons.search),
-      TitledNavigationBarItem(title: Text('Bag'), icon: Icons.card_travel),
-      TitledNavigationBarItem(title: Text('Orders'), icon: Icons.shopping_cart),
-      TitledNavigationBarItem(title: Text('Profile'), icon: Icons.person_outline),
-  ]
+    TitledNavigationBarItem(title: Text('Home'), leading: Icon(Icons.home)),
+    TitledNavigationBarItem(title: Text('Search'), leading: Icon(Icons.search)),
+    TitledNavigationBarItem(title: Text('Bag'), leading: Icon(Icons.card_travel)),
+    TitledNavigationBarItem(title: Text('Orders'), leading: Icon(Icons.shopping_cart)),
+    TitledNavigationBarItem(title: Text('Profile'), leading: Icon(Icons.person_outline)),
+  ],
 )
 ```
 
-## Customization (Optional)
+## Utilisation avancée : SVG comme icône
+
+```dart
+import 'package:flutter_svg/flutter_svg.dart';
+
+bottomNavigationBar: TitledBottomNavigationBar(
+  currentIndex: 0,
+  onTap: (index) {},
+  items: [
+    TitledNavigationBarItem(
+      title: Text('SVG'),
+      leading: SvgPicture.asset(
+        'assets/icon.svg',
+        width: 24,
+        height: 24,
+        color: Colors.blue, // Gérez la couleur manuellement pour les SVG
+      ),
+    ),
+    // ... autres items
+  ],
+)
+```
+
+## Personnalisation
 
 ### TitledBottomNavigationBar
-**onTap** - Use this to get notified when an item is clicked, you can retrieve the current item's index on this function. Should not be null!<br/>
-**items** - The items of your bottom navigation bar. Use the **TitledNavigationBarItem** class to add items. Should not be null!<br/>
-**curve** - Use this to define your custom curve animation. Should not be null!<br/>
-**reverse** - If true, the visible widget of the selected item will be the Text (with the title of the item). If false, the visible widget of the selected item will be the icon. Default to false<br/>
-**activeColor** - The active Text/Icon color. The default color is the indicatorColor of your app Theme.<br/>
-**inactiveColor** - The inactive Text/Icon color. The default is the black color.<br/>
-**indicatorColor** - The indicator color. The default color is the indicatorColor of your app Theme.<br/>
-**currentIndex** - Use this to update the Bar giving a position.<br/>
-**enableShadow** - Use this to remove the NavigationBar's shadow<br/>
+- **onTap** : Callback appelé lors du clic sur un item, retourne l'index sélectionné. (obligatoire)
+- **items** : Liste des items à afficher (obligatoire, 2 à 5 items).
+- **curve** : Courbe d'animation personnalisée.
+- **reverse** : Si true, l'élément sélectionné affiche le texte, sinon l'icône (ou widget principal).
+- **activeColor** : Couleur du texte/widget actif.
+- **inactiveColor** : Couleur du texte/widget inactif.
+- **indicatorColor** : Couleur de l'indicateur.
+- **currentIndex** : Index de l'item sélectionné.
+- **enableShadow** : Affiche ou non l'ombre sous la barre.
+- **height** : Hauteur de la barre.
+- **indicatorHeight** : Hauteur de l'indicateur.
+- **inactiveStripColor** : Couleur de fond de la barre.
 
 ### TitledNavigationBarItem
-**icon** -The icon of this item. This will be used as default state if reverse mode is disabled<br/>
-**title** -  The title of this item. This will be used as default state if reverse mode is enabled<br/>
+- **leading** : Widget principal de l'item (Icon, SvgPicture, Image, ...). Si ce n'est pas un `Icon`, gérez la couleur manuellement.
+- **title** : Titre de l'item (Widget).
+- **backgroundColor** : Couleur de fond de l'item (optionnel, par défaut blanc).
+
+## Bonnes pratiques
+- Pour les SVG, utilisez le package [flutter_svg](https://pub.dev/packages/flutter_svg) et gérez la couleur via la propriété `color` du widget `SvgPicture`.
+- Vous pouvez utiliser n'importe quel widget pour `leading` (Image, Icon, etc.), ce qui rend la barre très flexible.
+
+---
+
+Pour toute question ou suggestion, ouvrez une issue ou une PR sur le repo !
