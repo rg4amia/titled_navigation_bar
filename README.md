@@ -38,8 +38,8 @@ Ajoutez le plugin à votre fichier `pubspec.yaml` :
 dependencies:
   flutter:
     sdk: flutter
-  titled_navigation_bar: ^5.0.0-nullsafety.0
-  flutter_svg: ^2.0.0 # (optionnel, pour les SVG)
+  titled_navigation_bar: ^6.0.0-nullsafety.0
+  flutter_svg: ^2.2.0 # (optionnel, pour les SVG)
 ```
 
 ## Importation

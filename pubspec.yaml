@@ -1,6 +1,6 @@
 name: titled_navigation_bar
 description: A beautiful, clean and simple bottom navigation bar with smooth animation on click. This package is high customizable, read more bellow for more details.
-version: 5.0.0-nullsafety.0
+version: 6.0.0-nullsafety.0
 homepage: https://github.com/pedromassango/titled_navigation_bar
 
 environment:
@@ -13,5 +13,3 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
-flutter:
